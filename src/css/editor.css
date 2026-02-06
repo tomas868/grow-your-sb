@@ -1,0 +1,211 @@
+/* ===== Global Reset ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ===== Top Bar ===== */
+#top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 16px;
+  background: #1a1a2e;
+  border-bottom: 1px solid #2a2a4a;
+  z-index: 10;
+}
+
+#top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#logo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #818cf8;
+  letter-spacing: -0.5px;
+}
+
+#top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.top-bar-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #a5b4fc;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.top-bar-btn:hover {
+  background: #2a2a4a;
+  color: #e0e7ff;
+}
+
+.btn-icon { font-size: 16px; }
+.btn-label { font-size: 12px; }
+
+.top-bar-divider {
+  width: 1px;
+  height: 24px;
+  background: #2a2a4a;
+  margin: 0 8px;
+}
+
+/* ===== Editor Layout ===== */
+#editor {
+  height: calc(100vh - 48px);
+}
+
+/* ===== GrapesJS Theme Overrides ===== */
+
+/* Left panel (blocks) */
+.gjs-pn-views-container,
+.gjs-pn-views {
+  background: #16213e !important;
+}
+
+.gjs-pn-panel {
+  background: #16213e !important;
+}
+
+/* Right panel (styles/traits) */
+.gjs-sm-sectors,
+.gjs-trt-traits,
+.gjs-sm-sector {
+  background: #16213e !important;
+}
+
+.gjs-sm-sector .gjs-sm-sector-title,
+.gjs-clm-tags .gjs-sm-sector-title {
+  background: #1a1a2e !important;
+  color: #a5b4fc !important;
+  border: none !important;
+}
+
+/* Block items */
+.gjs-block {
+  background: #1a1a2e !important;
+  border: 1px solid #2a2a4a !important;
+  border-radius: 8px !important;
+  color: #c7d2fe !important;
+  min-height: 70px !important;
+  transition: border-color 0.15s, background 0.15s !important;
+}
+
+.gjs-block:hover {
+  border-color: #818cf8 !important;
+  background: #2a2a4a !important;
+}
+
+.gjs-block svg {
+  fill: #818cf8 !important;
+}
+
+.gjs-block__media {
+  margin-bottom: 4px;
+}
+
+/* Category headers */
+.gjs-block-category .gjs-title {
+  background: #1a1a2e !important;
+  color: #a5b4fc !important;
+  border-bottom: 1px solid #2a2a4a !important;
+  font-weight: 600 !important;
+}
+
+/* Canvas */
+.gjs-cv-canvas {
+  background: #0f0f23 !important;
+}
+
+.gjs-frame-wrapper {
+  background: #ffffff;
+}
+
+/* Toolbar on selected elements */
+.gjs-toolbar {
+  background: #818cf8 !important;
+  border-radius: 4px !important;
+}
+
+/* Selected element highlight */
+.gjs-selected {
+  outline: 2px solid #818cf8 !important;
+}
+
+/* Hovered element highlight */
+.gjs-hovered {
+  outline: 1px dashed #818cf8 !important;
+}
+
+/* General text colors */
+.gjs-one-bg { background: #16213e !important; }
+.gjs-two-color { color: #c7d2fe !important; }
+.gjs-three-bg { background: #818cf8 !important; }
+.gjs-four-color, .gjs-four-color-h:hover { color: #818cf8 !important; }
+
+/* Input fields */
+.gjs-field {
+  background: #1a1a2e !important;
+  border: 1px solid #2a2a4a !important;
+  border-radius: 4px !important;
+  color: #e0e7ff !important;
+}
+
+.gjs-field input,
+.gjs-field select,
+.gjs-field textarea {
+  color: #e0e7ff !important;
+}
+
+/* Layer manager */
+.gjs-layer-name {
+  color: #c7d2fe !important;
+}
+
+/* Scrollbars */
+.gjs-pn-views-container::-webkit-scrollbar,
+.gjs-sm-sectors::-webkit-scrollbar {
+  width: 6px;
+}
+
+.gjs-pn-views-container::-webkit-scrollbar-thumb,
+.gjs-sm-sectors::-webkit-scrollbar-thumb {
+  background: #2a2a4a;
+  border-radius: 3px;
+}
+
+/* Mobile warning */
+@media (max-width: 768px) {
+  body::before {
+    content: 'Grow Your SB works best on desktop. Please use a wider screen.';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    background: #1a1a2e;
+    color: #a5b4fc;
+    font-size: 16px;
+    text-align: center;
+    padding: 40px;
+    z-index: 9999;
+  }
+  #top-bar, #editor { display: none; }
+}
