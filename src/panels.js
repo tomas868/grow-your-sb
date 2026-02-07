@@ -49,13 +49,11 @@ export function configurePanels(editor) {
   // Right panel tab switching
   setupTabSwitching('right-panel');
 
-  // Auto-switch right panel tab based on selected component
-  editor.on('component:selected', (component) => {
-    const isHtmlBlock = component && component.get('type') === 'custom-html-block';
-    const targetPanel = isHtmlBlock ? 'traits' : 'styles';
-    const tab = document.querySelector(`#right-panel-header .panel-tab[data-panel="${targetPanel}"]`);
-    if (tab && !tab.classList.contains('active')) {
-      tab.click();
+  // Auto-switch right panel to Styles when a component is selected
+  editor.on('component:selected', () => {
+    const stylesTab = document.querySelector('#right-panel-header .panel-tab[data-panel="styles"]');
+    if (stylesTab && !stylesTab.classList.contains('active')) {
+      stylesTab.click();
     }
   });
 }
