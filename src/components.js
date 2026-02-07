@@ -119,6 +119,57 @@ export function registerComponents(editor) {
     },
   });
 
+  // --- Custom HTML Textarea Trait ---
+  editor.TraitManager.addType('html-textarea', {
+    createInput({ trait }) {
+      const el = document.createElement('div');
+      el.innerHTML = `
+        <textarea class="gysb-html-textarea" rows="10" placeholder="Paste your HTML here..."
+          style="width:100%; min-height:180px; padding:10px; font-family:'Courier New',monospace;
+          font-size:13px; background:#0f0f23; color:#e0e7ff; border:1px solid #2a2a4a;
+          border-radius:6px; resize:vertical; line-height:1.5; tab-size:2;"></textarea>
+        <button class="gysb-html-apply-btn"
+          style="margin-top:8px; padding:8px 16px; background:#818cf8; color:#fff;
+          border:none; border-radius:6px; cursor:pointer; font-size:13px; font-weight:600;
+          width:100%;">Apply HTML</button>
+      `;
+      const textarea = el.querySelector('textarea');
+      const btn = el.querySelector('button');
+
+      // Load existing HTML from the component
+      const component = this.target;
+      if (component) {
+        const inner = component.getInnerHTML ? component.getInnerHTML() : '';
+        textarea.value = inner;
+      }
+
+      btn.addEventListener('click', () => {
+        const component = this.target;
+        if (component) {
+          component.components(textarea.value);
+        }
+      });
+
+      // Also allow Ctrl+Enter to apply
+      textarea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          btn.click();
+        }
+        // Allow Tab to insert tab character
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          textarea.value = textarea.value.substring(0, start) + '  ' + textarea.value.substring(end);
+          textarea.selectionStart = textarea.selectionEnd = start + 2;
+        }
+      });
+
+      return el;
+    },
+  });
+
   // --- Custom HTML Block Component ---
   editor.DomComponents.addType('custom-html-block', {
     model: {
@@ -127,24 +178,14 @@ export function registerComponents(editor) {
         draggable: true,
         droppable: false,
         attributes: { class: 'gysb-html-block' },
-        content: '<div style="padding:20px; background:#f8fafc; border:1px dashed #94a3b8; min-height:60px; font-family:monospace; font-size:14px">Custom HTML Block — edit in Settings panel</div>',
+        components: '<div style="padding:20px; background:#f8fafc; border:1px dashed #94a3b8; min-height:60px; font-family:monospace; font-size:14px; color:#475569">Custom HTML Block — select this element, then go to the <b>Settings</b> tab on the right to edit the HTML code.</div>',
         traits: [
           {
-            type: 'text',
+            type: 'html-textarea',
             name: 'custom-html',
             label: 'HTML Code',
-            changeProp: true,
           },
         ],
-      },
-      init() {
-        this.on('change:custom-html', this.onHtmlChange);
-      },
-      onHtmlChange() {
-        const html = this.get('custom-html');
-        if (html !== undefined && html !== '') {
-          this.components(html);
-        }
       },
     },
   });
