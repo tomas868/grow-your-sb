@@ -1,6 +1,7 @@
 export function exportProject(editor) {
   const html = editor.getHtml();
   const css = editor.getCss();
+  const js = editor.getJs();
 
   const fullPage = `<!DOCTYPE html>
 <html lang="en">
@@ -16,6 +17,7 @@ export function exportProject(editor) {
 </head>
 <body>
   ${html}
+  ${js ? `<script>${js}<\/script>` : ''}
 </body>
 </html>`;
 
@@ -23,7 +25,7 @@ export function exportProject(editor) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'my-website.html';
+  a.download = 'export.html';
   a.click();
   URL.revokeObjectURL(url);
 }

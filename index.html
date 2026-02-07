@@ -8,13 +8,38 @@
   <link rel="stylesheet" href="/src/css/editor.css" />
 </head>
 <body>
+  <!-- Top Bar -->
   <div id="top-bar">
     <div id="top-bar-left">
       <span id="logo">Grow Your SB</span>
     </div>
     <div id="top-bar-actions"></div>
   </div>
-  <div id="editor"></div>
+
+  <!-- Main Editor Layout: Left Sidebar | Canvas | Right Sidebar -->
+  <div id="editor-wrapper">
+    <div id="left-panel">
+      <div id="left-panel-header">
+        <button class="panel-tab active" data-panel="blocks">Add</button>
+        <button class="panel-tab" data-panel="layers">Layers</button>
+      </div>
+      <div id="blocks-panel" class="panel-content active"></div>
+      <div id="layers-panel" class="panel-content"></div>
+    </div>
+    <div id="editor"></div>
+    <div id="right-panel">
+      <div id="right-panel-header">
+        <button class="panel-tab active" data-panel="styles">Styles</button>
+        <button class="panel-tab" data-panel="traits">Settings</button>
+      </div>
+      <div id="styles-panel" class="panel-content active">
+        <div id="selector-panel"></div>
+        <div id="style-manager-panel"></div>
+      </div>
+      <div id="traits-panel" class="panel-content"></div>
+    </div>
+  </div>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

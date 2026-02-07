@@ -14,6 +14,14 @@ export function configureStorage() {
   };
 }
 
+export function saveProject(editor) {
+  editor.store();
+}
+
+export function loadProject(editor) {
+  editor.load();
+}
+
 export function clearProject(editor) {
   editor.DomComponents.clear();
   editor.CssComposer.clear();
